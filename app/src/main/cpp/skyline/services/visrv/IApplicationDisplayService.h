@@ -89,6 +89,12 @@ namespace skyline::service::visrv {
         Result ConvertScalingMode(type::KSession &session, ipc::IpcRequest &request, ipc::IpcResponse &response);
 
         /**
+         * @brief
+         * @url https://switchbrew.org/wiki/Display_services#GetIndirectLayerImageRequiredMemoryInfo
+         */
+        Result GetIndirectLayerImageRequiredMemoryInfo(type::KSession &session, ipc::IpcRequest &request, ipc::IpcResponse &response);
+
+        /**
          * @brief Returns a handle to a KEvent which is triggered every time a frame is drawn
          * @url https://switchbrew.org/wiki/Display_services#GetDisplayVsyncEvent
          */
@@ -106,6 +112,7 @@ namespace skyline::service::visrv {
           SFUNC_BASE(0x7EE, IApplicationDisplayService, IDisplayService, CreateStrayLayer),
           SFUNC_BASE(0x7EF, IApplicationDisplayService, IDisplayService, DestroyStrayLayer),
           SFUNC(0x835, IApplicationDisplayService, SetLayerScalingMode),
+          SFUNC(0x99C, IApplicationDisplayService, GetIndirectLayerImageRequiredMemoryInfo),
           SFUNC(0x1452, IApplicationDisplayService, GetDisplayVsyncEvent)
       )
     };

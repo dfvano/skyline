@@ -80,6 +80,19 @@ namespace skyline::service::visrv {
         return {};
     }
 
+    Result IApplicationDisplayService::GetIndirectLayerImageRequiredMemoryInfo(type::KSession &session, ipc::IpcRequest &request, ipc::IpcResponse &response) {
+        auto width{request.Pop<s64>()};
+        auto height{request.Pop<s64>()};
+        Logger::Debug("GetIndirectLayerImageRequiredMemoryInfo: width: {}, height: {}", width, height);
+
+        constexpr s64 base_size = 0x20000;
+        constexpr s64 alignment = 0x1000;
+        const auto texture_size = width * height * 4;
+        response.Push<s64>((texture_size + base_size - 1) / base_size * base_size);
+        response.Push<s64>(alignment);
+        return {};
+    }
+
     Result IApplicationDisplayService::GetDisplayVsyncEvent(type::KSession &session, ipc::IpcRequest &request, ipc::IpcResponse &response) {
         KHandle handle{state.process->InsertItem(state.gpu->presentation.vsyncEvent)};
         Logger::Debug("V-Sync Event Handle: 0x{:X}", handle);
